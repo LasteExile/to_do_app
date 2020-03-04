@@ -3,25 +3,27 @@
 
 {% block nav_content %}
     <a class="nav-link active" href="#">Sign In</a>
+    <a class="nav-link" href="{% url 'signup' %}">Sign Up</a>
 {% endblock %}
 
 {% block main_content %}
     <form method="post" action="{% url 'login' %}">
         {% csrf_token %}
-        {% if form.errors %}
-            <h4 class="mb-4">Login or Password is incorrect</h4>
-        {% endif %}
+
         <div class="form-group">
             {{ form.username.errors }}
-            <label for="{{ form.username.id_for_label }}">Email address</label>
+            <label for="{{ form.username.id_for_label }}">Username</label>
             {{ form.username|add_class:'form-control' }}
-            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
         <div class="form-group">
             {{ form.password.errors }}
             <label for="{{ form.password.id_for_label }}">Password</label>
             {{ form.password|add_class:'form-control' }}
         </div>
+        {% if form.errors %}
+            <h6 class="mb-4">Login or Password is incorrect</h6>
+        {% endif %}
+        <small id="emailHelp" class="form-text text-muted mb-3">New to To Do? <a href="{% url 'signup' %}">Create an account.</a></small>
         <button type="submit" class="btn btn-outline-light">Submit</button>
     </form>
 {% endblock %}

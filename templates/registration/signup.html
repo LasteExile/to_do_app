@@ -1,5 +1,41 @@
-<form method="POST" action="{% url 'signup' %}">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit"/>
-</form>
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+
+{% block nav_content %}
+    <a class="nav-link active" href="#">Sign Up</a>
+    <a class="nav-link" href="{% url 'login' %}">Sign In</a>
+{% endblock %}
+
+{% block main_content %}
+    <form method="post" action="{% url 'signup' %}">
+        {% csrf_token %}
+        
+        <div class="form-group">
+            {{ form.username.errors }}
+            <label for="{{ form.username.id_for_label }}">Username</label>
+            {{ form.username|add_class:'form-control' }}
+        </div>
+        <div class="form-group">
+            {{ form.email.errors }}
+            <label for="{{ form.email.id_for_label }}">Email</label>
+            {{ form.email|add_class:'form-control' }}
+            <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
+        </div>
+        <div class="form-group">
+            {{ form.password1.errors }}
+            <label for="{{ form.password1.id_for_label }}">Password</label>
+            {{ form.password1|add_class:'form-control' }}
+        </div>
+        <div class="form-group">
+            {{ form.password2.errors }}
+            <label for="{{ form.password2.id_for_label }}">Password (repeat)</label>
+            {{ form.password2|add_class:'form-control' }}
+        </div>
+        {% if from.errors %}
+            {{ from.errors }}
+        {% endif %}
+        <small id="emailHelp" class="form-text text-muted mb-3">Already have an account? <a href="{% url 'login' %}">Sign In.</a></small>
+        <button type="submit" class="btn btn-outline-light">Submit</button>
+
+    </form>
+{% endblock %}
