@@ -30,25 +30,24 @@
     <link href="{% static 'cover.css' %}" rel="stylesheet">
 </head>
 
-<body class="text-center">
+<body class="outer-contaiter">
     <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         <header class="masthead mb-auto">
             <div class="inner">
                 <h3 class="masthead-brand">To Do App</h3>
                 <nav class="nav nav-masthead justify-content-center">
                     {% block nav_content %}
-
                     {% endblock %}
                 </nav>
             </div>
         </header>
 
-        <main role="main" class="inner cover">
+        <main role="main" class="container inner cover">
             {% block main_content %}
             {% endblock %}
         </main>
 
-        <footer class="mastfoot mt-auto">
+        <footer class="text-center mastfoot mt-auto">
             <div class="inner">
                 <p>Site by <a href="{% url 'about_page' %}">laste</a>.</p>
             </div>
