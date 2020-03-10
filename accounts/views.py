@@ -7,7 +7,7 @@ from . import forms
 class SignUpView(FormView):
     template_name = 'registration/signup.html'
     form_class = forms.SignUpForm
-    success_url = '/home'
+    success_url = 'login'
 
     def form_valid(self, form):
         form.create_new_user(self.request)
