@@ -36,6 +36,18 @@ class Detail(DetailView):
     model = models.Task
     template_name = 'tasks/detail.html'
 
+    def post(self, request, pk):
+        params = request.POST.get('taskmarkas').split()
+        type_ = int(params[0])
+        key = int(params[1])
+
+        if type_ == 1:
+            models.Task.objects.filter(pk=key).update(completed=True)
+        elif type_ == 2:
+            models.Task.objects.filter(pk=key).update(completed=False)
+        
+        return HttpResponseRedirect(f'/tasks/detail/{pk}')
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context['sub_tasks'] = models.Task.objects.get(pk=self.kwargs['pk']).sub_tasks.all()
@@ -51,9 +63,22 @@ class CreateTask(FormView):
     def form_valid(self, form):
         time = form.cleaned_data.get('deadline_time')
         models.Task.objects.create(user=self.request.user, text=self.request.POST.get('text'), deadline_time=time)
-        
         return HttpResponseRedirect(self.success_url)
 
+
+class CreateSubTask(FormView):
+    form_class = forms.CreateNewSubTaskForm
+    template_name = 'tasks/createsub.html'
+    success_url = '/tasks'
+
+    def form_valid(self, form):
+        models.SubTask.objects.create(task=self.request.POST.get('task'), text=self.request.POST.get('text'))
+        return HttpResponseRedirect(self.success_url)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
 
 class About(TemplateView):
     template_name = 'tasks/about.html'

@@ -41,3 +41,8 @@ class CreateNewTaskForm(forms.Form):
             self.add_error('deadline_time', 'Please enter a valid future date')
 
         return time
+
+
+class CreateNewSubTaskForm(forms.Form):
+    text = forms.CharField(max_length=200)
+    
