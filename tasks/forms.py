@@ -1,36 +1,37 @@
 from django import forms
 from datetime import datetime
 
+
 class CreateNewTaskForm(forms.Form):
     text = forms.CharField(max_length=200)
     deadline_time = forms.DateTimeField(input_formats=[
-        '%d/%m/%Y %H:%M', 
+        '%d/%m/%Y %H:%M',
         '%d/%m/%Y',
-        '%d.%m.%Y %H:%M', 
+        '%d.%m.%Y %H:%M',
         '%d.%m.%Y',
-        '%d-%m-%Y %H:%M', 
+        '%d-%m-%Y %H:%M',
         '%d-%m-%Y',
-        '%d %m %Y %H:%M', 
+        '%d %m %Y %H:%M',
         '%d %m %Y',
-        
-        '%d/%m/%Y %H.%M', 
-        '%d.%m.%Y %H.%M', 
-        '%d-%m-%Y %H.%M', 
-        '%d %m %Y %H.%M', 
-        
-        '%d / %m / %Y %H:%M', 
+
+        '%d/%m/%Y %H.%M',
+        '%d.%m.%Y %H.%M',
+        '%d-%m-%Y %H.%M',
+        '%d %m %Y %H.%M',
+
+        '%d / %m / %Y %H:%M',
         '%d / %m / %Y',
-        '%d . %m . %Y %H:%M', 
+        '%d . %m . %Y %H:%M',
         '%d . %m . %Y',
-        '%d - %m - %Y %H:%M', 
+        '%d - %m - %Y %H:%M',
         '%d - %m - %Y',
-        '%d %m %Y %H:%M', 
+        '%d %m %Y %H:%M',
         '%d %m %Y',
-        
-        '%d / %m / %Y %H.%M', 
-        '%d . %m . %Y %H.%M', 
-        '%d - %m - %Y %H.%M', 
-        ])
+
+        '%d / %m / %Y %H.%M',
+        '%d . %m . %Y %H.%M',
+        '%d - %m - %Y %H.%M',
+    ])
 
     def clean_deadline_time(self):
         time = self.cleaned_data['deadline_time']
@@ -45,4 +46,3 @@ class CreateNewTaskForm(forms.Form):
 
 class CreateNewSubTaskForm(forms.Form):
     text = forms.CharField(max_length=200)
-    
