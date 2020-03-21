@@ -5,8 +5,7 @@
     <a class="nav-link active" href="#">Details</a>
         {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'create_page' %}">Create</a>
-            <a class="nav-link" href="#">Home</a>
-            <a class="nav-link" href="#">Tomorrow</a>
+            <a class="nav-link" href="{% url 'home_page' %}">Home</a>
             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         {% endif %}
 {% endblock %}
@@ -16,21 +15,39 @@
         <h1>{{ task }}</h1>
         {% if task.completed %}
             <form method="post" action="{% url 'detail_page' task.pk %}">
-                <a class="btn btn-outline-link ml-3">Edit</a>
                 {% csrf_token %}
+                <a class="btn btn-outline-link text-light ml-3" href="{% url 'edittask_page' task.pk %}">Edit</a>
                 <input name="taskmarkas" type="hidden" value="2 {{ task.pk }}">
-                <input class="btn btn-link text-light" type="submit" value="Mark as Undone">
+                <input class="btn btn-outline-link text-light" type="submit" value="Mark as Undone">
             </form>
         {% else %}
             <form method="post" action="{% url 'detail_page' task.pk %}">
-                <a class="btn btn-outline-link ml-3">Edit</a>
                 {% csrf_token %}
+                <a class="btn btn-outline-link text-light ml-3" href="{% url 'edittask_page' task.pk %}">Edit</a>
                 <input name="taskmarkas" type="hidden" value="1 {{ task.pk }}">
-                <input class="btn btn-link text-light" type="submit" value="Mark as Done">
+                <input class="btn btn-outline-link text-light" type="submit" value="Mark as Done">
             </form>
         {% endif %}
         {% if sub_tasks %}
-            Something
+        <div class="ml-5">
+            {% for sub_task in sub_tasks %}
+                <h2>{{ sub_task }}</h2>
+                {% if sub_task.completed %}
+                    <form method="post" action="{% url 'detail_page' task.pk %}">
+                        {% csrf_token %}
+                        <a class="btn btn-outline-link text-light ml-3" href="{% url 'editsubtask_page' task.pk sub_task.pk %}">Edit</a>
+                        <input class="btn btn-link text-light" type="submit" value="Mark as Undone">
+                    </form>
+                {% else %}
+                    <form method="post" action="{% url 'detail_page' task.pk %}">
+                        {% csrf_token %}
+                        <a class="btn btn-outline-link text-light ml-3" href="{% url 'editsubtask_page' task.pk sub_task.pk %}">Edit</a>
+                        <input name="sub_taskmarkas" type="hidden" value="1 {{ sub_task.pk }}">
+                        <input class="btn btn-link text-light" type="submit" value="Mark as Done">
+                    </form>
+                {% endif %}
+            {% endfor %}
+        </div>
         {% else %}
             <h3>You have no subtasks:</h3>
             <a class="btn btn-outline-light" href="{% url 'createsub_page' task.pk %}">Create first</a>

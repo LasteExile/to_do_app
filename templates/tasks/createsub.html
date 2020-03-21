@@ -16,7 +16,6 @@
         {% if user.is_authenticated %}
         <form method="post" action="{% url 'createsub_page' pk %}">
             {% csrf_token %}
-            <input name="task" type="hidden" value="{{ pk }}">
             <div class="form-group">
                 <label for="{{ form.text.id_for_label }}">Task's text: </label>
                 {{ form.text|add_class:'form-control' }}
