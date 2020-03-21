@@ -5,8 +5,6 @@
     <a class="nav-link active" href="#">Home</a>
         {% if user.is_authenticated %}
             <a class="nav-link" href="{% url 'create_page' %}">Create</a>
-            <a class="nav-link" href="#">Tomorrow</a>
-            <a class="nav-link" href="#">This week</a>
             <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
         {% endif %}
 {% endblock %}
