@@ -47,6 +47,7 @@
                     </form>
                 {% endif %}
             {% endfor %}
+            <a class="btn btn-outline-link text-light mt-3" href="{% url 'createsub_page' task.pk %}">Create another one</a>
         </div>
         {% else %}
             <h3>You have no subtasks:</h3>

@@ -19,7 +19,7 @@
                         {% if task.completed %}
                             <h4 class="ml-4">- (Done) {{ task.text }}</h4>
                                 <form method="post" action="{% url 'home_page' %}">
-                                    <a class="btn btn-outline-link ml-3">Edit</a>
+                                    <a class="btn btn-outline-link text-light ml-3" href="{% url 'edittask_page' task.pk %}">Edit</a>
                                     <a class="btn btn-outline-link text-light" href="{% url 'detail_page' task.pk %}">Details</a>
                                     {% csrf_token %}
                                     <input name="taskmarkas" type="hidden" value="2 {{ task.pk }}">
@@ -28,7 +28,7 @@
                         {% else %}
                             <h4 class="ml-4">- {{ task.text }}</h4>
                                 <form method="post" action="{% url 'home_page' %}">
-                                    <a class="btn btn-outline-link ml-3">Edit</a>
+                                    <a class="btn btn-outline-link text-light ml-3" href="{% url 'edittask_page' task.pk %}">Edit</a>
                                     <a class="btn btn-outline-link text-light" href="{% url 'detail_page' task.pk %}">Details</a>
                                     {% csrf_token %}
                                     <input name="taskmarkas" type="hidden" value="1 {{ task.pk }}">

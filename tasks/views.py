@@ -85,12 +85,17 @@ class CreateTask(FormView):
 class CreateSubTask(FormView):
     form_class = forms.CreateNewSubTaskForm
     template_name = 'tasks/createsub.html'
-    success_url = '/tasks/detail/'
+    success_url = '/tasks/detail'
 
     def form_valid(self, form):
         models.SubTask.objects.create(task=models.Task.objects.get(
             pk=self.kwargs['pk']), text=self.request.POST.get('text'))
-        return HttpResponseRedirect(f'self.success_url/{self.kwargs["pk"]}')
+        return HttpResponseRedirect(f'{self.success_url}/{self.kwargs["pk"]}')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['pk'] = self.kwargs['pk']
+        return context
 
 
 class EditTask(UpdateView):
